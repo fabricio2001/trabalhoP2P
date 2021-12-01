@@ -3,8 +3,10 @@ import random
 import socket
 import sys
 import _thread
+import menssagem as m
 
 PORT = 12345
+
 
 node = {
     "id": None,
@@ -59,6 +61,28 @@ def servidor(udp):
                 mensage = json.dumps(mensagem)
                 udp.sendto(mensage.encode("utf-8"), cliente)
 
+            elif msg_json["codigo"] == 1:
+                pass
+
+            elif msg_json["codigo"] == 2:
+                pass
+
+            elif msg_json["codigo"] == 3:
+                pass
+
+            elif msg_json["codigo"] == 64:
+                pass
+
+            elif msg_json["codigo"] == 65:
+                pass
+
+            elif msg_json["codigo"] == 66:
+                pass
+
+            elif msg_json["codigo"] == 67:
+                pass
+            
+
     print(f"Server closse")
 
 
@@ -88,25 +112,24 @@ def main():
         print("\n" * 130)
         if opc == "1":
             node['id'] = str(random.randrange(1, 1000))
+
         elif opc == "2":
             node['id_antecessor'] = node['id']
             node['id_sucessor'] = node['id']
             node['ip_antecessor'] = node['ip']
             node['ip_sucessor'] = node['ip']
             _thread.start_new_thread(servidor, (udp, ))
+
         elif opc == "3":
             endereco_lookup = input("informe o endereco IP: ")
-            print(endereco_lookup)
+        
             dest = (endereco_lookup, PORT)
 
-            mensagem = {}
-            mensagem['codigo'] = 0
-            mensagem['id'] = node["id"]
+            mensagem = m.join(node)
 
             message = json.dumps(mensagem)
             udp.sendto(message.encode("utf-8"), dest)
             _thread.start_new_thread(cliente, (udp,))
-
 
         elif opc == "5":
             continue
