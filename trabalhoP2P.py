@@ -3,7 +3,8 @@ import random
 import socket
 import sys
 import _thread
-import os 
+import os
+import time 
 import mensagem as m
 
 clear = lambda: os.system('clear')
@@ -137,8 +138,8 @@ def main():
 
             message = json.dumps(mensagem)
             udp.sendto(message.encode("utf-8"), dest)
-            
             _thread.start_new_thread(cliente, (udp,))
+            time.sleep(0.001)  
         
         elif opc == "4":
             pass
